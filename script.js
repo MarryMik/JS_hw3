@@ -158,3 +158,203 @@ function doesBrickFit (a,b,c,w,h){
 }
 //console.log(doesBrickFit(2,1,2,1,3))
 
+
+
+//Task 17
+//Native
+//12345 -> 13542
+let arr3= [1,2,3,4,5]
+let arr4=[]
+let length=arr3.length;
+for(let j=0; j<length; j++){
+        if(j%2==0){
+            arr4.unshift(arr3.reduce((x,y)=>(x>y)?x:y))
+            arr3=arr3.filter(x=>x!=arr3.reduce((x,y)=>(x>y)?x:y))
+        }
+        else{
+            arr4.push(arr3.reduce((x,y)=>(x>y)?x:y))
+            arr3=arr3.filter(x=>x!=arr3.reduce((x,y)=>(x>y)?x:y))
+        }
+}
+//console.log(arr4)
+
+//Lodash
+function newArray(arr3){
+    let arr4=[]
+    let length1=arr3.length;
+    for(let j=0; j<length1; j++){
+        let maxV=_.max(arr3)
+        if(j%2==0){
+            arr4.unshift(maxV)
+            arr3=arr3.filter(x=>x!=maxV)
+        }
+        else{
+            arr4.push(maxV)
+            arr3=arr3.filter(x=>x!=maxV)
+        }
+    }
+    return arr4
+}
+let arr5=[1,2,3,4,5]
+//console.log(newArray(arr5))
+
+//Task16
+
+function newPassw(){
+    let length = Math.floor(Math.random() * 15) + 6;
+    let pasw =''
+    let randChar= function(pasw){
+        if(pasw.match(/[0-9]/g)==null || pasw.match(/[0-9]/g).length<5){
+            if(pasw.search("_")!==0){
+                if(pasw.charCodeAt(pasw.length-1)<10 && pasw.charCodeAt(pasw.length-1)>=0){
+                    let code = Math.floor(Math.random()*58)+17;
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);}
+                    else return String.fromCharCode(65);
+                }else{
+                    let code = Math.floor(Math.random()*74);
+                    if(code<10 && code>=0) {return code;}
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);}
+                    else return String.fromCharCode(65);
+                }
+            }else{
+                if(pasw.charCodeAt(pasw.length-1)<10 && pasw.charCodeAt(pasw.length-1)>=0){
+                    let code = Math.floor(Math.random()*58)+17;
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);}
+                    if (code==47) {return String.fromCharCode(code + 48);}
+                    else return String.fromCharCode(65);
+                }else{
+                    let code = Math.floor(Math.random()*74);
+                    if(code<10 && code>=0) {return code;}
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);}
+                    if (code==47) {return String.fromCharCode(code + 48);}
+                    else return String.fromCharCode(65);
+                }
+            }
+        }else{
+            if(pasw.search("_")!==0){
+                    let code = Math.floor(Math.random()*58)+17;
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);} 
+                    else return String.fromCharCode(65);
+            }else{
+                    let code = Math.floor(Math.random()*58)+17;
+                    if (code<=42 && code>=17) {return String.fromCharCode(code + 48);}
+                    if (code<=74 && code>=49) {return String.fromCharCode(code + 48);}
+                    if (code==47) {return String.fromCharCode(code + 48);}
+                    else return String.fromCharCode(65);
+            }
+        }
+    }
+    while(pasw.length < length) pasw+=randChar(pasw);
+    if(pasw.match(/[A-Z]/g).length<2){
+        let ind1 = Math.floor(Math.random()*length);
+        let ind2 = Math.floor(Math.random()*length);
+        let code = Math.floor(Math.random()*26)+17;
+        pasw=pasw.replace(pasw[ind1],String.fromCharCode(code+48));
+        pasw=pasw.replace(pasw[ind2],String.fromCharCode(code+48));
+    }
+    if(pasw.match(/[_]/g)==null){
+        let ind1 = Math.floor(Math.random()*length);
+        pasw=pasw.replace(pasw[ind1], String.fromCharCode(95));
+    }
+    return pasw;
+}
+//console.log(newPassw())
+
+//Task 10
+let str3='c:\\WebServers\\home\\testsite\\www\\myfile.txt';
+function findFileName(str3){
+    let arr =  str3.split(/[\\]/)
+    arr = arr[arr.length-1].split('.')
+    return arr[0]
+}
+//console.log(findFileName(str3))
+
+
+//Task11
+let str1 = 'sometext'
+let str2 = 'textforsome'
+//Native
+function cyclicDisp(str1,str2){
+    let arrStr2 =[]
+    while (!str2.includes(str1)){
+        arrStr2 = str2.split('')
+        arrStr2.unshift(arrStr2.pop())
+        str2=arrStr2.join('')
+    }
+    console.log(str2)
+}
+//cyclicDisp(str1,str2)
+
+//Lodash
+function lodCyclicDisp(str1,str2){
+    let arrStr2 =[]
+    while (!_.includes(str2,str1)){
+        arrStr2 = _.split(str2,'')
+        arrStr2.unshift(arrStr2.pop())
+        str2=_.join(arrStr2,'')
+    }
+    console.log(str2)
+}
+//lodCyclicDisp(str1,str2)
+
+
+//Task12
+let a =[1,2,6,4,9,7];
+//Native
+function divideArrs(a){
+    let b=[];
+    let c=[];
+    if(a.length%2==0){
+    while(a.length>1){
+        let arr =[]
+        for(let j =1, k=0; j<a.length; j++,k++){
+            if( a[j]>a[0]) arr[k]=a[j]-a[0]
+            else arr[k]=a[0]-a[j]
+        }
+        let ind=arr.indexOf(Math.min(...arr))
+        let min = Math.min(a[0],a[ind+1]);
+        let max = Math.max(a[0],a[ind+1])
+        b.push(min)
+        c.push(max)
+        delete a[ind+1]
+        a=a.filter(el=>el!=undefined)
+        a.shift()
+    }
+    }else{
+        console.log("у масиві має бути парна кількість елементів!")
+    }
+    console.log(b)
+    console.log(c)
+}
+//divideArrs(a)
+
+//Lodash
+function lodDivideArrs(a){
+    let b=[];
+    let c=[];
+    if(a.length%2==0){
+    while(a.length>1){
+        let arr =[]
+        for(let j =1, k=0; j<a.length; j++,k++){
+            if( a[j]>a[0]) arr[k]=a[j]-a[0]
+            else arr[k]=a[0]-a[j]
+        }
+        let ind=_.indexOf(arr,_.min(arr))
+        let min = _.min([a[0],a[ind+1]]);
+        let max = _.max([a[0],a[ind+1]]);
+        b.push(min)
+        c.push(max)
+        _.pullAt(a, [ind+1, 0])
+    }
+    }else{
+        console.log("у масиві має бути парна кількість елементів!")
+    }
+    console.log(b)
+    console.log(c)
+}
+//lodDivideArrs(a)
