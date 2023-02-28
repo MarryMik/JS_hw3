@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 14</title>
+</head>
+<body>
+    <p id="text"></p>
+    <script>
+        let str='(пр(олол)длдл)';
+        function checkBrackets(text){
+            let arr=[]
+            for(let i =0; i<text.length; i++){
+                let k= text[i]
+                if(k=='('){
+                    arr.push(k)
+                    continue;
+                }
+                if(arr.length ==0) return false;
+                 if(k==')'){
+                     arr.pop();
+                 }
+            }
+            return (arr.length==0)
+        }
+
+        if(checkBrackets(str)){
+            document.getElementById('text').innerText=str;
+            document.oncontextmenu = new Function("return false");
+            document.onselectstart= new Function("return false");
+        }else{
+            document.getElementById('text').innerText='Помилка :('            
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 15</title>
+</head>
+<body>
+    <div id="words">
+
+    </div>
+
+    <script>
+        //Task 15
+        let str = prompt("Введіть текст") //запрос на введення фрази
+
+        var ul =document.createElement("ul")
+        ul.setAttribute('id', 'wordlist')
+        let words=str.split(' ')
+        words.unshift(words.shift(0).toUpperCase())// перше слово великими
+    
+        words=words.map((el, indx, arr)=>{ 
+            if(indx==arr.length-2 || indx==arr.length-1){ // два останні з маленької
+                let el1 = el.split('')
+                el1.unshift(el1.shift().toLowerCase())
+                return el1.join('')
+            }else{
+                return el
+            }
+        })
+
+        document.getElementById('words').appendChild(ul);
+       
+        words.forEach(printWordList) // кожне слово у список
+
+        function printWordList(element, index, arr){
+            var li = document.createElement('li')
+            li.setAttribute('class','word')
+            ul.appendChild(li)
+            li.innerHTML =li.innerHTML+element
+        }
+       
+        
+        let letters = words.join(' ').split('')
+        let countA=0;
+        letters.forEach(x => {if(x==='a' || x==='A')countA++;}); // кількість "а" i "A"
+        alert("Кількість /'а/' = "+countA);
+
+        setTimeout(ice, 300000); // після 5 хв бездіяльності - "Ви ще тут?" (якщо ні закрити сторінку)
+        
+        function ice(){
+            function notClick(event) { event.preventDefault(); } 
+            document.body.addEventListener('click', notClick);
+            if(window.confirm("Ви ще тут?") == false){
+                window.close()
+            }else{
+                document.body.removeEventListener('click', notClick)
+            }
+        }
+
+    </script>
+</body>
+</html>

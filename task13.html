@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problems</title>
+</head>
+<body>
+    <h2>Task 13</h2>
+        <input id="text" type="text" >
+        <input id="butn" type="submit" value="sent" >
+    
+    <script>
+        //Task13       
+        let myInterval;
+        let str=document.getElementById("text")
+        let x=document.createElement("p")
+        document.body.appendChild(x);
+       document.getElementById("butn").addEventListener("click", anyProblem)
+        
+       function anyProblem(){
+            let str1 = str.value
+            let str2= editString(str1)
+            x.innerText=str2
+            console.log(str1.length+" "+str2.length)    
+            myInterval= setInterval(callAlert, 5000) // якщо кількість символів в отр.рядку > вхідн. рядку -> функція alert("Чи потрібна допомога?") к.5 сек
+            if(x.innerText.length<str.value.length){
+                clearInterval(myInterval)
+                console.log("stop")
+            }
+            
+        }
+
+        function callAlert(){
+            if(x.innerText.length>str.value.length){
+                alert("Чи потрібна допомога?")
+            }
+        }
+        
+
+        function isNumber(str){
+            if(Number.parseInt(str).toString().length===str.length && str.length>3){
+                return false
+            }
+            else{ return true }
+        }
+
+        function isUrl(str){
+            let inpEl=document.createElement('input');
+            inpEl.type='url'
+            inpEl.value=str
+            if(!inpEl.checkValidity()){
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+        function isEmail(str){
+            if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(str)) return true
+            else return false
+        }
+
+        function editString(someStr){
+            let newStr ='';
+            newStr=someStr.toLowerCase()
+            let arr = newStr.split('')
+            arr.unshift(arr.shift(0).toUpperCase())// нижній регістр, крім першої літери першого слова 
+            newStr=arr.join('')
+            let words = newStr.split(' ')
+            words= words.filter(x=>{return isNumber(x)==true}) // понад 3 символи з цифрами видаляються
+            
+            let arrW2= words.map(word =>{
+                if( isUrl(word)==true){
+                    return word= "[посилання заборонено]" // усі посилання у словах замінюється на "посилання заборонено"
+                }else{
+                    if(isEmail(word)){
+                        return word= "[контакти заборонено]"  //всі email замінюються на "[контакти заборонені]"
+                    }
+                    else return word
+                }
+            })
+
+            return arrW2.join(' ');
+        }
+    </script>
+
+
+</body>
+</html>
